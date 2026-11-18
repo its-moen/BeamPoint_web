@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071619">
+<title>BeamPoint BP-1 Business</title>
+<meta name="description" content="Pricing, market, savings and cash plan for BeamPoint BP-1.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/motion.css">
+</head>
+<body data-page="business.html">
+<a class="skip" href="#main">Skip to content</a>
+<div id="progress"></div>
+<header class="bar" id="site-header"></header>
+<nav id="chips" aria-label="On this page"></nav>
+<main id="main">
+<section id="pricing" data-title="Pricing"><div class="wrap">
+  <p class="eyebrow rv">Business model</p><h1 class="rv" style="font-size:clamp(2rem,6vw,3rem)">The device opens the door. The data keeps it open.</h1>
+  <p class="mute rv">Four ways to get BP-1, so price is never the reason to wait.</p>
+  <div class="grid" data-render="pricing"></div>
+</div></section>
+
+<section id="savings" class="alt" data-title="Savings"><div class="wrap">
+  <p class="eyebrow rv">Customer value</p><h2 class="rv">What a provider saves</h2>
+  <div class="card calc rv">
+    <div>
+      <p>Technicians on the team: <b id="tn">6</b></p>
+      <input id="techs" type="range" min="1" max="20" value="6" aria-label="Number of technicians">
+      <p class="mute">Devices needed: <b id="dv">2</b>. Based on the proposal's six technician example: 16 avoided repeat visits, extra installs, retained customers and fewer support calls.</p>
+    </div>
+    <div><div class="out" id="sv"></div><div class="out" id="pb" style="color:var(--warm);margin-top:14px"></div></div>
+  </div>
+  <p class="note">Planning estimate to be validated in the pilot.</p>
+</div></section>
+
+<section id="market" data-title="Market"><div class="wrap">
+  <p class="eyebrow rv">Uganda</p><h2 class="rv">740 devices in the serviceable market</h2>
+  <div class="grid stats">
+    <div class="card rv"><b data-count="740">0</b><p>devices</p></div>
+    <div class="card rv" style="--d:.1s"><b data-count="888" data-pre="UGX " data-suf="m">0</b><p>in hardware</p></div>
+    <div class="card rv" style="--d:.2s"><b data-count="67" data-suf="%">0</b><p>gross margin</p></div>
+    <div class="card rv" style="--d:.3s"><b data-count="80">0</b><p>units to break even</p></div>
+  </div>
+  <div class="grow" style="margin-top:28px" data-render="market"></div>
+</div></section>
+
+<section id="costs" class="alt" data-title="Unit cost"><div class="wrap">
+  <p class="eyebrow rv">Bill of materials</p><h2 class="rv">UGX 255,000 per unit at 500 units</h2>
+  <div class="grow"><div class="stack" data-render="bom"></div><div class="legend" data-render="bomlegend"></div></div>
+  <p class="note">Selling at UGX 1,200,000 leaves about UGX 800,000 contribution per unit at scale.</p>
+</div></section>
+
+<section id="cash" data-title="Cash plan"><div class="wrap">
+  <p class="eyebrow rv">Year 1</p><h2 class="rv">A UGX 45m seed raise, never below zero</h2>
+  <p class="mute rv">Closing cash by quarter in UGX millions. The lowest balance is about UGX 5.7m in month 7, before the first sales arrive.</p>
+  <div class="grow"><div class="cols" data-render="cash"></div></div>
+</div></section>
+
+<section class="alt cta" data-title="Next"><div class="wrap rv">
+  <h2>Who builds it, and how fast?</h2>
+  <a class="btn" href="project.html">Open the project page</a>
+</div></section>
+</main>
+<footer id="site-footer"></footer>
+<script src="js/data.js"></script>
+<script src="js/art.js"></script>
+<script src="js/render.js"></script>
+<script src="js/motion.js"></script>
+</body>
+</html>
