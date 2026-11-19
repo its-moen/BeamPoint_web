@@ -53,19 +53,6 @@
     window.addEventListener("pointermove", function (e) { if (down) r.scrollLeft = s0 - (e.clientX - x0); });
   });
 
-  // savings calculator (planning estimate from the proposal, to be validated in the pilot)
-  var cr = $("#techs");
-  if (cr) {
-    var fmt = function (n) { return "UGX " + Math.round(n).toLocaleString("en-US"); };
-    var upd = function () {
-      var t = +cr.value, dev = Math.ceil(t / 3), save = t * (5150000 / 6), cost = dev * 1200000, sub = dev * 45000, net = save - sub;
-      $("#tn").textContent = t; $("#dv").textContent = dev;
-      $("#sv").innerHTML = fmt(net) + "<small>estimated monthly benefit after subscription</small>";
-      $("#pb").innerHTML = (cost / net).toFixed(1) + " months<small>to recover " + fmt(cost) + " in devices</small>";
-    };
-    cr.addEventListener("input", upd); upd();
-  }
-
   // scroll driven: parallax, progress bar, horizontal pin, morph stage
   var par = all(".par"), hp = all(".hpin"), mp = all(".morph"), bar = $("#progress");
   hp.forEach(function (p) { var tr = $(".track", p); var size = function () { p.style.height = tr.scrollWidth - window.innerWidth + window.innerHeight * 1.1 + "px"; }; size(); window.addEventListener("resize", size); });
@@ -88,6 +75,7 @@
   var frame = function () {
     tick = false;
     var y = window.scrollY, max = document.documentElement.scrollHeight - window.innerHeight;
+    document.body.classList.toggle("scrolled", y > 8); var tp = document.getElementById("totop"); if (tp) tp.classList.toggle("show", y > 700);
     if (bar) bar.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
     if (!reduce) par.forEach(function (g) { g.style.transform = "translateY(" + y * +g.getAttribute("data-speed") + "px)"; });
     hp.forEach(function (p) {

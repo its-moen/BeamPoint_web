@@ -3,16 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071619">
+<meta name="theme-color" content="#f5f8ff">
 <title>BeamPoint BP-1 Device</title>
 <meta name="description" content="A handheld that tells internet installers which tower to point at before they climb.">
 <script>document.documentElement.classList.add("js")</script>
+<script>try{var m=localStorage.getItem("bp-mode")||"light";document.documentElement.dataset.mode=m;document.documentElement.dataset.theme=m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):m}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/features.css">
 </head>
 <body data-page="index.html">
 <a class="skip" href="#main">Skip to content</a>
+<noscript><p class="nojs">This site needs JavaScript for its interactive parts. Enable it and reload.</p></noscript>
 <div id="progress"></div>
 <header class="bar" id="site-header"></header>
 <nav id="chips" aria-label="On this page"></nav>
@@ -20,10 +25,12 @@
 <section class="hero" id="top" data-title="Start">
   <div class="scene" data-art="scene"></div>
   <div class="wrap">
-    <p class="eyebrow">BP-1 handheld for installers</p>
-    <h1 data-split>Align to a number, not a guess.</h1>
-    <p class="lead">Find the right tower, read the exact bearing and elevation, and point the antenna on the first attempt. Before anyone climbs.</p>
-    <a class="btn" href="#how">Watch it work</a><a class="btn ghost" href="business.html">See the business</a>
+    <p class="eyebrow">Align to a number, not a guess.</p>
+    <h1 data-split>Stop guessing. Point at the number.</h1>
+    <p class="lead">The handheld that tells your technicians which tower to aim at before they climb.</p>
+    <a class="btn" href="#demo">Try the demo</a><a class="btn ghost" href="project.html#pilot">Book a free pilot</a>
+    <div class="chips2"><span>Alignment: 70 min to under 20 min (target)</span><span>1 visit, not 3 (target)</span></div>
+    <p class="tiny">Targets, to be measured in pilot</p>
   </div>
 </section>
 
@@ -42,6 +49,62 @@
   </div></div>
 </section>
 
+<section id="demo" class="alt" data-title="Try the demo"><div class="wrap">
+  <p class="eyebrow rv">Interactive demo</p><h2 class="rv">Scan, aim, lock</h2>
+  <p class="mute rv">Press Scan, pick a tower, then turn the heading with the slider or by clicking the dial. Sample towers, not real network data.</p>
+  <div class="sim" id="sim">
+    <div class="simframe"><div class="simscreen">
+      <div class="simtop"><button class="btn" id="scan">Scan</button><button class="btn ghost" id="snd" aria-pressed="false">Sound off</button></div>
+      <div class="cells" id="cells"></div>
+      <ul class="tlist" id="tlist" aria-label="Ranked towers"></ul>
+    </div></div>
+    <div class="card simdial">
+      <svg id="dial" viewBox="0 0 240 240" role="img" aria-label="Compass dial. Orange needle is the target, teal needle is the current heading."></svg>
+      <input id="hdg" type="range" min="0" max="359" value="0" aria-label="Heading in degrees">
+      <div class="readout"><div><small>TARGET</small><b id="r_target">---</b></div><div><small>NOW</small><b id="r_now">000 deg</b></div><div><small>ELEV</small><b id="r_elev">---</b></div><div><small>TURN</small><b id="r_turn">---</b></div></div>
+      <div class="state" id="state" role="status">Scan to begin</div>
+      <button class="btn" id="lock" disabled>Lock</button>
+    </div>
+  </div>
+  <div class="cmp grow rv">
+    <div class="hbar"><span>Typical manual sweep</span><span class="t"><i style="--w:100%"></i></span><b>70 min</b></div>
+    <div class="hbar bp"><span>BeamPoint target</span><span class="t"><i style="--w:28%"></i></span><b>under 20</b></div>
+    <p class="tiny" id="demotime">Lock a tower to see your demo time. Targets are to be measured in the pilot.</p>
+  </div>
+  <div class="hrow" style="margin-top:22px"><h3>Job log</h3><button class="btn ghost" data-export="jobs" type="button">Export CSV</button></div>
+  <ul class="joblist" id="joblog"></ul>
+</div></section>
+
+<section id="planner" data-title="Bearing planner"><div class="wrap">
+  <p class="eyebrow rv">Plan before you climb</p><h2 class="rv">Bearing planner</h2>
+  <p class="mute rv">Enter the site and a tower to get distance, compass bearing and elevation angle. It uses the same maths as BP-1: great-circle bearing with earth curvature included.</p>
+  <div class="two">
+    <form id="planner-form" class="card rv" novalidate>
+      <div class="fields" style="grid-template-columns:1fr 1fr">
+        <label>Site latitude<input id="pl_slat" type="text" inputmode="decimal" placeholder="0.4244" autocomplete="off"></label>
+        <label>Site longitude<input id="pl_slon" type="text" inputmode="decimal" placeholder="33.2041" autocomplete="off"></label>
+        <label>Tower latitude<input id="pl_tlat" type="text" inputmode="decimal" placeholder="0.4510" autocomplete="off"></label>
+        <label>Tower longitude<input id="pl_tlon" type="text" inputmode="decimal" placeholder="33.2300" autocomplete="off"></label>
+      </div>
+      <label style="margin-top:12px">Height difference in metres<input id="pl_dh" type="text" inputmode="decimal" value="0" autocomplete="off"></label>
+      <p class="tiny">Tower antenna height above your antenna. Use a negative number if the tower is lower.</p>
+      <div class="btnrow"><button class="btn" type="submit">Calculate</button><button class="btn ghost" type="button" id="pl-loc">Use my location</button><button class="btn ghost" type="button" id="pl-example">Fill example</button></div>
+    </form>
+    <div class="card rv" aria-live="polite">
+      <h3>Result</h3>
+      <p class="mute" id="pl-hint">Results appear here after you calculate.</p>
+      <div id="pl-out" hidden>
+        <div class="plres">
+          <svg viewBox="0 0 120 120" class="plc" role="img" aria-label="Bearing compass"><circle cx="60" cy="60" r="54" class="pr"/><text x="60" y="20" class="pt">N</text><g id="pl-needle"><path d="M60 60 V16" class="pn"/><path d="M54 24 L60 10 L66 24Z" class="pnh"/></g><circle cx="60" cy="60" r="4" class="ph"/></svg>
+          <dl><dt>Distance</dt><dd id="pl-km"></dd><dt>Bearing</dt><dd id="pl-br"></dd><dt>Elevation</dt><dd id="pl-el"></dd></dl>
+        </div>
+        <button class="btn ghost" type="button" id="pl-copy">Copy result</button>
+      </div>
+      <p id="pl-note" class="tiny"></p>
+    </div>
+  </div>
+</div></section>
+
 <section id="features" class="alt" data-title="Features"><div class="wrap">
   <p class="eyebrow rv">What makes it different</p><h2 class="rv">Built around the installer</h2>
   <div class="grid" data-render="features"></div>
@@ -54,14 +117,21 @@
 
 <section class="alt cta" data-title="Next"><div class="wrap rv" id="next">
   <h2>Does the arithmetic work for a provider?</h2>
-  <p class="mute">Try the savings calculator and see the pricing options.</p>
+  <p class="mute">Try the ROI calculator and the dashboard preview.</p>
   <a class="btn" href="business.html">Open the business page</a>
 </div></section>
 </main>
 <footer id="site-footer"></footer>
 <script src="js/data.js"></script>
 <script src="js/art.js"></script>
+<script src="js/store.js"></script>
+<script src="js/validate.js"></script>
 <script src="js/render.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/planner.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/tracker.js"></script>
 <script src="js/motion.js"></script>
 </body>
 </html>

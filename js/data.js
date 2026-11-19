@@ -2,19 +2,18 @@
 window.SITE = {
   nav: [["index.html","Device"],["business.html","Business"],["project.html","Project"]],
   problem: [
-    {i:"sweep",t:"Blind sweeping",b:"Installers rotate the antenna by hand and watch signal bars. One alignment can take 40 minutes to two hours."},
-    {i:"wrong",t:"Wrong tower",b:"Strong bars can come from a crowded or distant tower. Quality matters more than strength."},
-    {i:"repeat",t:"Repeat visits",b:"Every return trip costs fuel, labour and half a day of a crew's time."},
-    {i:"log",t:"Lost knowledge",b:"Nothing records which tower was chosen or why, so skill leaves when a technician does."}
+    {i:"sweep",t:"Alignment is slow and unreliable",b:"Installers sweep the antenna by hand and watch signal bars. One alignment takes 40 minutes to two hours, and often ends on a crowded or distant tower."},
+    {i:"wrong",t:"Tools do not fit the market",b:"Spectrum analysers cost UGX 15m and up. Imported tools cost UGX 4 to 9m with no local data. Free apps give no bearing."},
+    {i:"log",t:"Skill lives in people's heads",b:"Nothing records which tower was chosen or why, so the knowledge leaves when a technician changes employer."}
   ],
   steps: [
-    {t:"Fix position",b:"GNSS gives the site coordinates and altitude."},
-    {t:"Scan",b:"The LTE module lists the serving and neighbouring cells."},
-    {t:"Resolve towers",b:"Cell identities are matched to the offline tower database."},
-    {t:"Score and rank",b:"Quality, distance and terrain clearance decide the winner."},
-    {t:"Compute geometry",b:"Great-circle bearing and elevation to the best tower."},
-    {t:"Guide",b:"Compass and dial close the gap while the tone rises."},
-    {t:"Lock and log",b:"Readings, position and time are saved and synced."}
+    {t:"GNSS fix",b:"Know where the install is."},
+    {t:"Scan cells",b:"Listen for nearby network signals."},
+    {t:"Match towers",b:"Connect the scan to the tower database."},
+    {t:"Score options",b:"Balance quality, distance and terrain."},
+    {t:"Compute bearing",b:"Get angle and elevation before climbing."},
+    {t:"Guide the aim",b:"Follow the dial and the rising tone."},
+    {t:"Lock and log",b:"Save the result to the dashboard."}
   ],
   status: ["Fixing position: 0.42 N, 33.20 E","Scanning cells","3 towers resolved","Ranking by quality","Target bearing 042 deg, +2.1 elev","Turn right, tone rising","Locked and logged"],
   features: [
@@ -25,10 +24,12 @@ window.SITE = {
   ],
   specs: [["Display","2.8 inch, sunlight readable"],["Cellular","LTE Cat-4 with neighbour cell report"],["Position","Multi-constellation GNSS"],["Heading","9-axis tilt compensated"],["Battery","5,000 mAh, USB-C"],["Enclosure","IP65 with antenna clamp"]],
   pricing: [
-    {p:"UGX 1,200,000",u:"one time",t:"Buy",b:"Outright purchase for established providers."},
-    {p:"UGX 150,000",u:"per month for 12 months",t:"Lease to own",b:"For small operators. The device is yours at term."},
-    {p:"UGX 90,000",u:"per week",t:"Rent",b:"For contractors with project or seasonal work."},
-    {p:"UGX 45,000",u:"per device per month",t:"Data subscription",b:"Tower updates, cloud sync and installation reports."}
+    {p:"UGX 1,200,000",u:"one time",t:"Buy",b:"Own the instrument outright."},
+    {p:"UGX 150,000",u:"per month for 12 months",t:"Lease to own",b:"Spread the cost across the field team."},
+    {p:"UGX 90,000",u:"per week",t:"Weekly rental",b:"Try BP-1 on the next install sprint."},
+    {p:"UGX 45,000",u:"per device per month",t:"Data subscription",b:"Keep tower intelligence current."},
+    {p:"UGX 1.5m",u:"per year",t:"Dashboard",b:"Turn every lock into operations evidence."},
+    {p:"UGX 250,000",u:"per technician",t:"Training",b:"Make the first field day count."}
   ],
   market: [["Tier-2 and 3 ISPs",210],["WISPs and community",120],["Contractors",180],["CCTV, solar, IoT",180],["Training institutes",50]],
   bom: [["Cellular module",78],["GNSS",42],["Power",28],["Orientation IMU",27],["Enclosure",26],["Interface",24],["Processing",15],["Assembly",15]],
@@ -51,5 +52,26 @@ window.SITE = {
     {t:"Data protection",w:"Before first customer data",b:"Installation logs carry GPS positions of premises. Register as a data controller or processor."},
     {t:"Trademark",w:"Month 6",b:"Protect the BeamPoint name, firmware and database."}
   ],
-  footer: "BeamPoint BP-1. Planning estimates for a course project. Jinja, Uganda."
+  // demo and dashboard (illustrative sample data)
+  towers: [
+    {site:"JJA-014",q:92,km:3.2,b:47,el:2.1,note:"Clear path, top match"},
+    {site:"JJA-031",q:71,km:5.8,b:112,el:1.4,note:"Moderate terrain"},
+    {site:"NKT-007",q:58,km:7.4,b:226,el:0.9,note:"Longer hop, verify"},
+    {site:"JJA-022",q:44,km:2.7,b:302,el:3.4,note:"Blocked by ridge"}
+  ],
+  kpis: [["267","Installations",""],["17 min","Avg alignment time","vs 70 min baseline"],["4","Repeat visits","vs 16 per month"],["15.8 dB","Avg SINR",""]],
+  weekly: [["W1",22],["W2",31],["W3",28],["W4",40],["W5",46],["W6",52],["W7",48]],
+  techs: [["Technician A",64,16],["Technician B",58,18],["Technician C",52,17],["Technician D",49,19],["Technician E",44,16]],
+  jobsSample: [["JOB-1042","JJA-014",92,"09:12"],["JOB-1041","JJA-031",71,"08:40"],["JOB-1040","JJA-014",90,"08:05"]],
+  survey: [["40+ min alignment",75],["Repeat visit last month",95],["Would use BP-1",85],["Would recommend",85],["Needs offline mode",65],["Would pay UGX 800k+",95],["Open to lease or rental",75],["Accepts UGX 45k subscription",50],["Ops manager or owner decides",75]],
+  footer: {
+    tag: "Align to a number, not a guess. A handheld antenna-alignment instrument and data service for internet installers in Uganda.",
+    cols: [
+      {h:"Explore",links:[["Device","index.html"],["How it works","index.html#how"],["Try the demo","index.html#demo"],["Bearing planner","index.html#planner"]]},
+      {h:"For providers",links:[["Pricing","business.html#pricing"],["ROI calculator","business.html#savings"],["Dashboard preview","business.html#dashboard"],["Break-even","business.html#breakeven"],["Book a free pilot","project.html#pilot"]]},
+      {h:"Project",links:[["Roadmap","project.html#roadmap"],["Team","project.html#team"],["Risks","project.html#risks"],["Legal steps","project.html#legal"],["Pilot tracker","project.html#tracker"]]}
+    ],
+    copy: "2026 BeamPoint. Planning estimates for a course project. Sample data is labelled as sample.",
+    place: "Jinja, Uganda"
+  }
 };

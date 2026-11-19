@@ -3,40 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071619">
+<meta name="theme-color" content="#f5f8ff">
 <title>BeamPoint BP-1 Business</title>
 <meta name="description" content="Pricing, market, savings and cash plan for BeamPoint BP-1.">
 <script>document.documentElement.classList.add("js")</script>
+<script>try{var m=localStorage.getItem("bp-mode")||"light";document.documentElement.dataset.mode=m;document.documentElement.dataset.theme=m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):m}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/features.css">
 </head>
 <body data-page="business.html">
 <a class="skip" href="#main">Skip to content</a>
+<noscript><p class="nojs">This site needs JavaScript for its interactive parts. Enable it and reload.</p></noscript>
 <div id="progress"></div>
 <header class="bar" id="site-header"></header>
 <nav id="chips" aria-label="On this page"></nav>
 <main id="main">
 <section id="pricing" data-title="Pricing"><div class="wrap">
   <p class="eyebrow rv">Business model</p><h1 class="rv" style="font-size:clamp(2rem,6vw,3rem)">The device opens the door. The data keeps it open.</h1>
-  <p class="mute rv">Four ways to get BP-1, so price is never the reason to wait.</p>
+  <p class="mute rv">Six ways to buy in, so price is never the reason to wait.</p>
   <div class="grid" data-render="pricing"></div>
 </div></section>
 
-<section id="savings" class="alt" data-title="Savings"><div class="wrap">
-  <p class="eyebrow rv">Customer value</p><h2 class="rv">What a provider saves</h2>
-  <div class="card calc rv">
-    <div>
-      <p>Technicians on the team: <b id="tn">6</b></p>
-      <input id="techs" type="range" min="1" max="20" value="6" aria-label="Number of technicians">
-      <p class="mute">Devices needed: <b id="dv">2</b>. Based on the proposal's six technician example: 16 avoided repeat visits, extra installs, retained customers and fewer support calls.</p>
+<section id="savings" class="alt" data-title="ROI"><div class="wrap">
+  <p class="eyebrow rv">Customer value</p><h2 class="rv">ROI calculator</h2>
+  <p class="mute rv">Change any input. Defaults are the proposal's six technician example.</p>
+  <div class="card rv" id="roi">
+    <div class="fields">
+      <label>Technicians<input type="number" id="r_tech" value="6" min="1"></label>
+      <label>Repeat visits avoided per month<input type="number" id="r_visits" value="16" min="0"></label>
+      <label>Cost per repeat visit (UGX)<input type="number" id="r_cost" value="120000" min="0"></label>
+      <label>Extra install value (UGX)<input type="number" id="r_extra" value="2400000" min="0"></label>
+      <label>Retained customers (UGX)<input type="number" id="r_ret" value="450000" min="0"></label>
+      <label>Support savings (UGX)<input type="number" id="r_sup" value="380000" min="0"></label>
+      <label>Devices<input type="number" id="r_dev" value="2" min="1"></label>
+      <label>Device price (UGX)<input type="number" id="r_price" value="1200000" min="0"></label>
+      <label>Subscription per device per month (UGX)<input type="number" id="r_sub" value="45000" min="0"></label>
     </div>
-    <div><div class="out" id="sv"></div><div class="out" id="pb" style="color:var(--warm);margin-top:14px"></div></div>
+    <div class="results">
+      <div class="card"><p>Monthly saving</p><b id="o_save"></b></div>
+      <div class="card"><p>Monthly cost</p><b id="o_cost" style="color:var(--bad)"></b></div>
+      <div class="card"><p>Net per month</p><b id="o_net"></b></div>
+      <div class="card warm"><p>Payback</p><b id="o_pb"></b></div>
+      <div class="card warm"><p>Payback if only half the savings appear</p><b id="o_half"></b></div>
+    </div>
+    <p class="tiny" style="margin-top:12px">Suggested devices for this team: <span id="o_sug"></span> (about one per three technicians). Planning estimate, to be validated in the pilot.</p>
   </div>
-  <p class="note">Planning estimate to be validated in the pilot.</p>
 </div></section>
 
-<section id="market" data-title="Market"><div class="wrap">
+<section id="dashboard" data-title="Dashboard"><div class="wrap">
+  <p class="eyebrow rv">Preview</p><h2 class="rv">Cloud operations dashboard <span class="badge">SAMPLE DATA</span></h2>
+  <div class="grid stats" data-render="kpis"></div>
+  <div class="two" style="margin-top:16px">
+    <div class="card grow rv"><h3>Weekly installations</h3><div class="cols" data-render="weekly"></div></div>
+    <div class="card rv"><h3>Technicians</h3><table><thead><tr><th>Name</th><th>Installs</th><th>Avg time</th></tr></thead><tbody data-render="techs"></tbody></table></div>
+  </div>
+  <div class="card rv" style="margin-top:16px"><div class="hrow"><h3>Latest jobs</h3><button class="btn ghost" data-export="jobs" type="button">Export CSV</button></div><ul class="joblist" id="latest"></ul><p class="tiny" id="jobsrc"></p></div>
+</div></section>
+
+<section id="market" class="alt" data-title="Market"><div class="wrap">
   <p class="eyebrow rv">Uganda</p><h2 class="rv">740 devices in the serviceable market</h2>
   <div class="grid stats">
     <div class="card rv"><b data-count="740">0</b><p>devices</p></div>
@@ -47,10 +75,29 @@
   <div class="grow" style="margin-top:28px" data-render="market"></div>
 </div></section>
 
-<section id="costs" class="alt" data-title="Unit cost"><div class="wrap">
+<section id="costs" data-title="Unit cost"><div class="wrap">
   <p class="eyebrow rv">Bill of materials</p><h2 class="rv">UGX 255,000 per unit at 500 units</h2>
   <div class="grow"><div class="stack" data-render="bom"></div><div class="legend" data-render="bomlegend"></div></div>
   <p class="note">Selling at UGX 1,200,000 leaves about UGX 800,000 contribution per unit at scale.</p>
+</div></section>
+
+<section id="breakeven" class="alt" data-title="Break-even"><div class="wrap">
+  <p class="eyebrow rv">Revenue model</p><h2 class="rv">Break-even calculator</h2>
+  <p class="mute rv">How many devices cover the fixed costs, and how much of that the subscription already pays for. Defaults are the proposal's year 1 figures.</p>
+  <div class="card rv" id="be">
+    <div class="fields">
+      <label>Fixed costs, year 1 (UGX)<input type="number" id="b_fixed" value="64000000" min="1"></label>
+      <label>Contribution per unit (UGX)<input type="number" id="b_contrib" value="800000" min="1"></label>
+      <label>Devices in the field<input type="number" id="b_devs" value="39" min="0"></label>
+      <label>Subscription per device per month (UGX)<input type="number" id="b_sub" value="45000" min="0"></label>
+    </div>
+    <div class="results">
+      <div class="card warm"><p>Units to break even</p><b id="o_units"></b></div>
+      <div class="card"><p>Subscriptions cover</p><b id="o_cover"></b></div>
+      <div class="card warm"><p>Units still needed after subscriptions</p><b id="o_after"></b></div>
+    </div>
+    <p class="tiny" style="margin-top:12px">Simple planning estimate. It ignores timing, so see the monthly cash plan for when the money moves.</p>
+  </div>
 </div></section>
 
 <section id="cash" data-title="Cash plan"><div class="wrap">
@@ -67,7 +114,14 @@
 <footer id="site-footer"></footer>
 <script src="js/data.js"></script>
 <script src="js/art.js"></script>
+<script src="js/store.js"></script>
+<script src="js/validate.js"></script>
 <script src="js/render.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/planner.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/tracker.js"></script>
 <script src="js/motion.js"></script>
 </body>
 </html>

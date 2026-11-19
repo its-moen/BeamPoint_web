@@ -3,16 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071619">
+<meta name="theme-color" content="#f5f8ff">
 <title>BeamPoint BP-1 Project</title>
 <meta name="description" content="Roadmap, team, risks and legal steps for BeamPoint BP-1.">
 <script>document.documentElement.classList.add("js")</script>
+<script>try{var m=localStorage.getItem("bp-mode")||"light";document.documentElement.dataset.mode=m;document.documentElement.dataset.theme=m==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):m}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/motion.css">
+<link rel="stylesheet" href="css/features.css">
 </head>
 <body data-page="project.html">
 <a class="skip" href="#main">Skip to content</a>
+<noscript><p class="nojs">This site needs JavaScript for its interactive parts. Enable it and reload.</p></noscript>
 <div id="progress"></div>
 <header class="bar" id="site-header"></header>
 <nav id="chips" aria-label="On this page"></nav>
@@ -27,26 +32,79 @@
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))" data-render="team"></div>
 </div></section>
 
-<section id="risks" data-title="Risks"><div class="wrap">
+<section id="survey" data-title="Survey"><div class="wrap">
+  <p class="eyebrow rv">Evidence <span class="badge">ILLUSTRATIVE SAMPLE</span></p><h2 class="rv">What the survey will test</h2>
+  <p class="mute rv">These bars show the layout of the analysis using sample numbers for 20 respondents. They are not collected data. Replace them with real responses after the survey. Small sample, so treat results as early evidence to confirm in the pilot.</p>
+  <div class="grow" data-render="survey"></div>
+</div></section>
+
+<section id="risks" class="alt" data-title="Risks"><div class="wrap">
   <p class="eyebrow rv">Risk register</p><h2 class="rv">What could go wrong</h2>
   <p class="mute rv">Score is likelihood times impact. Anything at 12 or more gets weekly review.</p>
   <div class="grow" data-render="risks"></div>
 </div></section>
 
-<section id="legal" class="alt" data-title="Legal"><div class="wrap">
+<section id="legal" data-title="Legal"><div class="wrap">
   <p class="eyebrow rv">Compliance</p><h2 class="rv">Four things to do before launch</h2>
   <div class="rv" data-render="legal"></div>
   <p class="note">All figures in this site are planning estimates for a course project.</p>
 </div></section>
 
-<section class="cta" data-title="Back"><div class="wrap rv">
-  <h2>Back to the device</h2><a class="btn" href="index.html">Watch BP-1 work</a>
+<section id="pilot" class="alt" data-title="Pilot"><div class="wrap" style="max-width:640px">
+  <p class="eyebrow rv">Free pilot</p><h2 class="rv">Book a free pilot</h2>
+  <p class="mute rv">Two units for one month, with alignment time and repeat visits measured. This demo saves your details in your browser only.</p>
+  <form id="pilotform" class="card rv">
+    <div class="fields" style="grid-template-columns:1fr 1fr">
+      <label>Name<input type="text" name="name" required autocomplete="name"></label>
+      <label>Company<input type="text" name="company" required autocomplete="organization"></label>
+      <label>Role<input type="text" name="role" required></label>
+      <label>WhatsApp number<input type="tel" name="whatsapp" required inputmode="tel"></label>
+    </div>
+    <button class="btn" type="submit">Request pilot</button>
+  </form>
+  <div class="card thanks" id="thanks" hidden><h3>Thank you, <b></b>.</h3><p>Your pilot request is saved. We will message you on WhatsApp.</p></div>
+</div></section>
+
+
+<section id="tracker" data-title="Pilot tracker"><div class="wrap">
+  <p class="eyebrow rv">Measure the objective</p><h2 class="rv">Pilot tracker</h2>
+  <p class="mute rv">Log each real job: minutes by the old method, minutes with BP-1, and whether the first tower was right. The scoreboard checks the project's own targets.</p>
+  <div class="two">
+    <form id="trk-form" class="card rv" novalidate>
+      <div class="fields" style="grid-template-columns:1fr 1fr">
+        <label>Provider<input type="text" name="provider" id="trk_provider" autocomplete="off"></label>
+        <label>Correct tower first time<select name="ok"><option value="yes">Yes</option><option value="no">No</option></select></label>
+        <label>Manual minutes<input type="text" inputmode="numeric" name="manual" id="trk_manual" autocomplete="off"></label>
+        <label>BeamPoint minutes<input type="text" inputmode="numeric" name="bp" id="trk_bp" autocomplete="off"></label>
+      </div>
+      <div class="btnrow"><button class="btn" type="submit">Add job</button><button class="btn ghost" type="button" id="trk-sample">Load 5 examples</button></div>
+    </form>
+    <div class="card rv">
+      <div class="results" style="margin-top:0">
+        <div><p class="tiny">Jobs</p><b class="kv" id="t_n">0</b></div><div><p class="tiny">Avg manual</p><b class="kv" id="t_m">-</b></div><div><p class="tiny">Avg BP-1</p><b class="kv" id="t_b">-</b></div><div><p class="tiny">Time saved</p><b class="kv" id="t_s">-</b></div><div><p class="tiny">Correct tower</p><b class="kv" id="t_r">-</b></div>
+      </div>
+      <ul class="goals"><li>Average under 20 minutes <span class="pill" id="g1">No data</span></li><li>At least 30% faster than manual <span class="pill" id="g2">No data</span></li><li>Correct tower in 85% of jobs <span class="pill" id="g3">No data</span></li></ul>
+      <p class="tiny" id="t_note"></p>
+    </div>
+  </div>
+  <div class="card rv" style="margin-top:16px">
+    <div class="hrow"><h3>Recent jobs</h3><span><button class="btn ghost" id="trk-export" type="button">Export CSV</button><button class="btn ghost" id="trk-clear" type="button">Clear all</button></span></div>
+    <table><thead><tr><th>Provider</th><th>Manual</th><th>BP-1</th><th>Correct</th><th></th></tr></thead><tbody id="trk-body"></tbody></table>
+    <p class="mute" id="trk-empty">No jobs yet. Add one above, or load the examples to see how the scoreboard works.</p>
+  </div>
 </div></section>
 </main>
 <footer id="site-footer"></footer>
 <script src="js/data.js"></script>
 <script src="js/art.js"></script>
+<script src="js/store.js"></script>
+<script src="js/validate.js"></script>
 <script src="js/render.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/planner.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/tracker.js"></script>
 <script src="js/motion.js"></script>
 </body>
 </html>

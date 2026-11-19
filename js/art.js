@@ -2,7 +2,7 @@
 window.ART = {
   scene: function () {
     var tower = function (x, y, s) {
-      return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')" stroke="#2fd0c2" stroke-width="3" fill="none">' +
+      return '<g transform="translate(' + x + ' ' + y + ') scale(' + s + ')" stroke="#1cc8b4" stroke-width="3" fill="none">' +
         '<path d="M0 0 L-26 260 M0 0 L26 260 M-18 90 L18 90 M-12 150 L12 150 M-22 210 L22 210 M-18 90 L12 150 M18 90 L-12 150 M-12 150 L22 210 M12 150 L-22 210"/>' +
         '<path d="M-10 4 L10 4" stroke-width="5"/></g>';
     };
@@ -12,15 +12,15 @@ window.ART = {
       return '<g>' + o + '</g>';
     };
     return '<svg viewBox="0 0 1200 640" preserveAspectRatio="xMidYMax slice" aria-hidden="true">' +
-      '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06181b"/><stop offset="1" stop-color="#0f3a40"/></linearGradient>' +
-      '<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f5b84b" stop-opacity=".9"/><stop offset="1" stop-color="#f5b84b" stop-opacity="0"/></radialGradient></defs>' +
+      '<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#071125"/><stop offset="1" stop-color="#122650"/></linearGradient>' +
+      '<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff7a1a" stop-opacity=".9"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient></defs>' +
       '<rect width="1200" height="640" fill="url(#sky)"/>' +
-      '<g class="par" data-speed="0.05"><circle cx="800" cy="170" r="150" fill="url(#glow)" opacity=".55"/><circle cx="800" cy="170" r="34" fill="#f5b84b" opacity=".8"/></g>' +
-      '<g class="par" data-speed="0.1"><path d="M0 430 Q150 360 300 420 T620 400 T940 420 T1200 380 V640 H0Z" fill="#0d2d33"/></g>' +
-      '<g class="par" data-speed="0.18"><path d="M0 500 Q200 430 420 490 T820 470 T1200 480 V640 H0Z" fill="#0a2227"/>' + tower(1010, 250, .9) + arcs(1030, 255) + '</g>' +
-      '<g class="par" data-speed="0.3"><path d="M0 590 Q260 520 560 580 T1200 560 V640 H0Z" fill="#061418"/>' +
-        '<g transform="translate(150 505)"><path d="M0 60 V20 L50 -14 L100 20 V60Z" fill="#12353b" stroke="#2c5560" stroke-width="2"/><rect x="38" y="30" width="24" height="30" fill="#071619"/>' +
-        '<path d="M66 -4 L66 -42 M54 -42 L78 -42 M58 -34 L74 -34" stroke="#f5b84b" stroke-width="3" fill="none" stroke-linecap="round"/></g>' +
+      '<g class="par" data-speed="0.05"><circle cx="800" cy="170" r="150" fill="url(#glow)" opacity=".55"/><circle cx="800" cy="170" r="34" fill="#ff7a1a" opacity=".8"/></g>' +
+      '<g class="par" data-speed="0.1"><path d="M0 430 Q150 360 300 420 T620 400 T940 420 T1200 380 V640 H0Z" fill="#10224a"/></g>' +
+      '<g class="par" data-speed="0.18"><path d="M0 500 Q200 430 420 490 T820 470 T1200 480 V640 H0Z" fill="#0c1b3b"/>' + tower(1010, 250, .9) + arcs(1030, 255) + '</g>' +
+      '<g class="par" data-speed="0.3"><path d="M0 590 Q260 520 560 580 T1200 560 V640 H0Z" fill="#060e20"/>' +
+        '<g transform="translate(150 505)"><path d="M0 60 V20 L50 -14 L100 20 V60Z" fill="#122650" stroke="#1a3263" stroke-width="2"/><rect x="38" y="30" width="24" height="30" fill="#071619"/>' +
+        '<path d="M66 -4 L66 -42 M54 -42 L78 -42 M58 -34 L74 -34" stroke="#ff7a1a" stroke-width="3" fill="none" stroke-linecap="round"/></g>' +
         '<path class="dash" d="M222 462 Q600 360 1002 258"/></g>' +
       '</svg>';
   },
@@ -38,15 +38,15 @@ window.ART = {
       '<rect class="body" x="6" y="6" width="288" height="508" rx="34"/><rect class="screen" x="22" y="30" width="256" height="420" rx="14"/>' +
       '<text x="34" y="50">BP-1</text><text x="236" y="50">87%</text>' +
       rings + '<path class="ring" d="M150 110 V330 M40 220 H260"/><text x="146" y="118">N</text>' +
-      '<g class="sg" data-from="1"><circle cx="150" cy="220" r="5" fill="#e8f1f3"/><circle cx="150" cy="220" r="12" fill="none" stroke="#e8f1f3" class="blink"/></g>' +
-      '<g class="sg" data-from="2" data-to="3"><g class="sweep"><path d="M150 220 L150 120 A100 100 0 0 1 187 127Z" fill="#2fd0c2" opacity=".3"/></g></g>' +
+      '<g class="sg" data-from="1"><circle cx="150" cy="220" r="5" fill="#eaf0ff"/><circle cx="150" cy="220" r="12" fill="none" stroke="#eaf0ff" class="blink"/></g>' +
+      '<g class="sg" data-from="2" data-to="3"><g class="sweep"><path d="M150 220 L150 120 A100 100 0 0 1 187 127Z" fill="#1cc8b4" opacity=".3"/></g></g>' +
       tw("A", true) + tw("B") + tw("C") +
       '<g class="sg" data-from="4">' + rows + '</g>' +
-      '<g class="sg" data-from="5"><path class="dash" d="M150 220 L203.5 160.6" style="stroke:#f5b84b"/><text x="206" y="150" style="fill:#f5b84b">042 deg</text></g>' +
-      '<g class="sg" data-from="6"><g id="needle"><path d="M150 220 V128" stroke="#e8f1f3" stroke-width="3" stroke-linecap="round"/><path d="M144 134 L150 120 L156 134Z" fill="#e8f1f3"/></g></g>' +
+      '<g class="sg" data-from="5"><path class="dash" d="M150 220 L203.5 160.6" style="stroke:#ff7a1a"/><text x="206" y="150" style="fill:#ff7a1a">042 deg</text></g>' +
+      '<g class="sg" data-from="6"><g id="needle"><path d="M150 220 V128" stroke="#eaf0ff" stroke-width="3" stroke-linecap="round"/><path d="M144 134 L150 120 L156 134Z" fill="#eaf0ff"/></g></g>' +
       '<g class="sg" data-from="7"><circle cx="203.5" cy="160.6" r="15" fill="none" stroke="#5be28a" stroke-width="3"/><rect class="lock" x="104" y="294" width="92" height="22" rx="11"/><text class="lockt" x="116" y="309">LOCKED</text></g>' +
       '<text id="status" x="34" y="342">Fixing position</text>' +
-      '<rect x="110" y="482" width="80" height="6" rx="3" fill="#1d4a50"/></svg>';
+      '<rect x="110" y="482" width="80" height="6" rx="3" fill="#1a3263"/></svg>';
   },
   icon: function (n) {
     var d = {
